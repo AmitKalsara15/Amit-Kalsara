@@ -21,7 +21,6 @@
     },
     "hero_banner_Qeehii": {
       "type": "hero-banner",
-      "disabled": true,
       "settings": {
         "image": "shopify:\/\/shop_images\/herobanner_3c4d7584-ed7f-4930-9bb8-714c30be8f6a.jpg",
         "heading": "The Gift Guide",
