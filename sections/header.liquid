@@ -1,0 +1,87 @@
+{% capture header %}
+      {% comment %} Header Custom Message Code start {% endcomment %}
+      {%- if section.settings.text != blank -%}
+        <div class="header_custom-message">
+          <p>{{ section.settings.text | escape }}</p>
+        </div>
+      {%- endif-%}
+      {% comment %} Header Custom Message Code End {% endcomment %}
+
+      {% comment %} Header CTA Button Code start {% endcomment %}
+      {%- if section.settings.button_link != blank -%}
+        <div class="header_cta-btn">
+          <a href="{{ section.settings.button_link }}" class="btn btn-secondary">
+            <span>{{ section.settings.button_label }} {%- render 'icon-arrow' -%}</span>
+          </a>
+        </div>
+      {%- endif-%}
+      {% comment %} Header CTA Button Code end {% endcomment %}
+{%- endcapture %}
+
+<sticky-header class="header-wrapper">
+  <header class="header page-width">
+      <div class="mobile-nav">
+        <header-drawer data-breakpoint="{% if section.settings.menu_type_desktop == 'drawer' %}desktop{% else %}tablet{% endif %}">
+          <details id="Details-menu-drawer-container" class="menu-drawer-container">
+            <summary class="header__icon header__icon--menu header__icon--summary link focus-inset">
+              <span>
+                {% render 'icon-hamburger' %}
+                {% render 'icon-close' %}
+              </span>
+            </summary> 
+             <div id="menu-drawer" class="menu-drawer">
+                {{ header }}
+             </div>
+      </div>
+      
+      {% comment %} Header logo code start {% endcomment %}
+      <a href="{{ routes.root_url }}" title="" class="header_logo">
+        {%- if settings.logo != blank -%}
+          <div class="header_heading-logo-wrapper">
+            {%- assign logo_alt = settings.logo.alt | deafult: shop.name | escape -%}
+            {{ settings.logo | image_url : width: 250 | image_tag: class: 'logo', width:settings.logo_width, alt: logo_alt }}  
+          </div>
+        {%- else-%}
+          <span class="h1">{{ shop.name }}</span>  
+        {%- endif-%}
+      </a>
+      {% comment %} Header logo code end {% endcomment %}
+
+      {{ header }}
+
+  </header>
+</sticky-header>  
+
+
+{% schema %}
+{
+  "name":"Header",
+  "class":"section-header",
+  "settings": [
+    {
+      "type":"header",
+      "content":"Custom Message"
+    },
+    {
+      "type":"text",
+      "id":"text",
+      "label":"Custom Message"
+    },
+    {
+      "type":"header",
+      "content":"Header CTA Button"
+    },
+    {
+      "type":"text",
+      "id":"button_label",
+      "default":"Choose Gift",
+      "label":"Button Label"
+    },
+    {
+      "type":"url",
+      "id":"button_link",
+      "label":"Button Link"
+    }
+  ]
+}
+{% endschema %}

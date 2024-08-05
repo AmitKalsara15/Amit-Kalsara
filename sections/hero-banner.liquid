@@ -1,0 +1,98 @@
+<section class="hero-banner">
+	<div class="banner_media">
+		{% comment %} Hero Banner image code start {% endcomment %}
+		{%- if section.settings.image != blank -%}
+	        {%- liquid
+	          assign widths = '375, 550, 750, 1280, 1440, 1600, 1920'
+	          assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio
+	        -%}
+            {{ section.settings.image | image_url: width: 1920 | image_tag }}
+	    {%- else -%}
+	        {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+	    {%- endif -%}
+	    {% comment %} Hero Banner image code end {% endcomment %}
+
+	    {% comment %} Hero Banner content code start {% endcomment %}
+	    <div class="banner_content">
+	    	<dir class="wrap">
+	    		{%- if section.settings.heading != blank -%}
+	    			<h2>{{ section.settings.heading | escape }}</h2>
+	    		{%- endif -%}
+
+	    		{%- if section.settings.body != blank -%}
+	    			<p>{{ section.settings.body | escape }}</p>
+	    		{%- endif -%}
+
+	    		{%- if section.settings.button_link != blank -%}
+	    			<a href="{{ section.settings.button_link }}" class="btn btn-primary">
+	    				<span>{{ section.settings.button_label }} {%- render 'icon-arrow' -%}</span>
+	    			</a>
+	    		{%- endif -%}
+	    	</dir>
+	    </div>
+	    {% comment %} Hero Banner content code start {% endcomment %}
+	</div>
+</section>
+
+{% comment %} Hero Banner bottom content code start {% endcomment %}
+{%- if section.settings.text-callout != blank -%}
+  <div class="text-callout">
+    {{ section.settings.text-callout | escape }}
+  </div>
+{%- endif -%}
+{% comment %} Hero Banner bottom content code end {% endcomment %}
+
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "header",
+      "content": "Hero Banner Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Banner Heading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "body",
+      "label": "Banner Info Text"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "Shop Now",
+      "label": "Button Label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Text Callout"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "text-callout",
+      "label": "Text Callout"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
+}
+{% endschema %}
